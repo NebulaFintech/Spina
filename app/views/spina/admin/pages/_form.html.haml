@@ -26,7 +26,7 @@
                   %li
                     = link_to t("languages.#{locale}"), "?locale=#{locale}", style: ('font-weight: 600' if @locale.to_s == locale.to_s).to_s
 
-        = link_to @page.materialized_path, target: :blank, class: 'button button-hollow button-small', style: 'margin-left: 0' do
+        = link_to @page.materialized_with_mounted_path, target: :blank, class: 'button button-hollow button-small', style: 'margin-left: 0' do
           %i.icon.icon-export{style: 'margin: 0'}
 
     #header_actions

@@ -43,6 +43,10 @@ module Spina
     translates :description, :materialized_path
     translates :menu_title, :seo_title, default: -> { title }
 
+    def materialized_with_mounted_path
+      Spina::Engine.routes.url_helpers.root_path[0..-2] + materialized_path
+    end
+
     def to_s
       name
     end
