@@ -19,6 +19,5 @@ module Spina
       @current_account ||= ::Spina::Account.first
     end
     helper_method :current_account
-
   end
 end
