@@ -47,6 +47,7 @@ es:
       media_library_description: "Aquí encontrarás todas tus imágenes y documentos"
       documents: Documentos
       photos: Imágenes
+      images: Imágenes
 
     pages:
       new: Nueva página
