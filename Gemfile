@@ -14,4 +14,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'mocha'
   gem 'listen'
+  gem 'codemirror-rails'
 end

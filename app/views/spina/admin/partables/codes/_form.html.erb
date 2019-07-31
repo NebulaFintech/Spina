@@ -1,0 +1,9 @@
+<div class="horizontal-form-label">
+  <%= f.object.title %>
+</div>
+
+<div class="horizontal-form-content">
+  <%= f.fields_for :partable, f.object.partable do |ff| %>
+    <%= ff.text_area :content, class: 'code-mirror', value: ff.object.content %>
+  <% end %>
+</div>
