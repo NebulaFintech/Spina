@@ -19,7 +19,7 @@ module Spina
     private
 
       def current_spina_user_can_view_page?
-        raise ActiveRecord::RecordNotFound unless current_carina_user.present? && page.live?
+        raise ActiveRecord::RecordNotFound unless current_carina_user.present? && current_carina_user.agent? && page.live?
       end
 
   end
