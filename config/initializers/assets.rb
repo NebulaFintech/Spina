@@ -6,4 +6,5 @@ Rails.application.config.assets.precompile += %w[
   spina/divider.svg
   spina/media_folder_placeholder.svg
   spina/spina.svg
+  spina/admin/code_mirror.js
 ]

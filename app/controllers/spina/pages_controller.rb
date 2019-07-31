@@ -2,6 +2,7 @@ module Spina
   class PagesController < Spina::ApplicationController
     include Spina::Frontend
     include Spina::SessionsHelper
+    include Rails.application.routes.url_helpers
 
     before_action :authenticate_user_with_omniauth!
     before_action :current_spina_user_can_view_page?, except: [:robots]

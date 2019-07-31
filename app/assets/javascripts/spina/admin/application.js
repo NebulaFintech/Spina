@@ -48,3 +48,9 @@
 // Scaffolding
 
 //= require ./scaffold
+
+// Code Mirror
+
+//= require codemirror/codemirror.js
+//= require codemirror/mode/htmlmixed/htmlmixed.js
+//= require codemirror/mode/xml/xml.js
