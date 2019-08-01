@@ -50,9 +50,9 @@ module Spina
       theme = ::Spina::Account.first.theme
       if theme.in? ['default', 'demo']
         template "config/initializers/themes/#{theme}.rb"
-        directory "app/assets/stylesheets/#{theme}"
-        directory "app/views/#{theme}"
-        directory "app/views/layouts/#{theme}"
+        # directory "app/assets/stylesheets/#{theme}"
+        # directory "app/views/#{theme}"
+        # directory "app/views/layouts/#{theme}"
       end
       Spina::THEMES.clear
       Dir[Rails.root.join('config', 'initializers', 'themes', '*.rb')].each { |file| load file }
