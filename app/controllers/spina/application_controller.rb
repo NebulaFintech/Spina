@@ -1,5 +1,6 @@
 module Spina
   class ApplicationController < ActionController::Base
+    include Spina::SessionsHelper
 
     protect_from_forgery with: :exception
 
@@ -11,7 +12,11 @@ module Spina
     helper_method :current_theme
 
     def current_spina_user
-      @current_spina_user ||= ::Spina::User.where(id: session[:user_id]).first if session[:user_id]
+      if current_carina_user&.admin?
+        @current_spina_user ||= ::Spina::User.where(admin: true).first
+      else
+        @current_spina_user ||= ::Spina::User.where(id: session[:user_id]).first if session[:user_id]
+      end
     end
     helper_method :current_spina_user
 
