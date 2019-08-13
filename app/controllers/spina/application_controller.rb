@@ -12,11 +12,7 @@ module Spina
     helper_method :current_theme
 
     def current_spina_user
-      if current_carina_user&.admin?
-        @current_spina_user ||= ::Spina::User.where(admin: true).first
-      else
-        @current_spina_user ||= ::Spina::User.where(id: session[:user_id]).first if session[:user_id]
-      end
+      @current_spina_user ||= ::Spina::User.where(id: session[:user_id]).first if session[:user_id]
     end
     helper_method :current_spina_user
 
