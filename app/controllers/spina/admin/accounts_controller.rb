@@ -2,6 +2,8 @@ module Spina
   module Admin
     class AccountsController < AdminController
 
+      layout 'spina/admin/admin'
+      
       def edit
         add_breadcrumb I18n.t('spina.preferences.account'), spina.edit_admin_account_path
       end

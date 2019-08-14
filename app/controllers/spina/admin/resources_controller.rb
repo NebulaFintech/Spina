@@ -2,6 +2,8 @@ module Spina
   module Admin
     class ResourcesController < AdminController
 
+      layout 'spina/admin/admin'
+      
       before_action :set_resource, only: [:show, :edit, :update]
 
       def show        

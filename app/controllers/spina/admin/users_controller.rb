@@ -5,6 +5,8 @@ module Spina
       before_action :authorize_admin, except: [:index]
       before_action :set_user, only: [:edit, :update, :destroy]
 
+      layout 'spina/admin/admin'
+      
       def index
         @users = User.all
       end
