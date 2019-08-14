@@ -5,6 +5,8 @@ module Spina
       before_action :set_locale
       before_action :set_page, only: [:edit, :update, :destroy, :children]
 
+      layout 'spina/admin/admin'
+      
       def index
         add_breadcrumb I18n.t('spina.website.pages'), spina.admin_pages_path
         redirect_to admin_pages_path unless current_admin_path.starts_with?('/pages')

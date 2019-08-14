@@ -1,7 +1,5 @@
 module Spina
   class ApplicationController < ActionController::Base
-    include Spina::SessionsHelper
-
     protect_from_forgery with: :exception
 
     private
