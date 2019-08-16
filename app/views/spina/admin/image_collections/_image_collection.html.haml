@@ -2,4 +2,5 @@
   %ul.sortable-grid
     - images.each do |image|
       %li.image{data: {image_id: image.id}}
-        = image_tag variant(image.file, resize: '300x300^', crop: "300x300+0+0")
+        = image_tag Rails.application.routes.url_helpers.rails_representation_url(image.file.variant(resize: "300x300").processed, only_path: true)
+

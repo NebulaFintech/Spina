@@ -1,5 +1,5 @@
 %tr
-  %td= link_to attachment.name, file_url(attachment.file), target: :blank
+  %td= link_to attachment.name, Rails.application.routes.url_helpers.url_for(attachment.file), target: :blank
   %td.nowrap= number_to_human_size(attachment.file.byte_size)
   %td.nowrap
     %small= l attachment.created_at, format: '%d %B %Y %H:%M'
