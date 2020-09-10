@@ -8,7 +8,7 @@ module Spina
       def index
         add_breadcrumb I18n.t('spina.website.images'), admin_images_path
         @media_folders = MediaFolder.order(:name)
-        @images = Image.sorted.where(media_folder_id: nil).with_attached_file.page(params[:page])
+        @images = Image.sorted.where(media_folder_id: nil).with_attached_file.page(params[:page]).per(25)
       end
 
       # There's no file validation yet in ActiveStorage
@@ -18,7 +18,7 @@ module Spina
       def create
         @images = params[:image][:files].map do |file|
           # Create the image and attach the file
-          image = Image.create
+          image = Image.create(media_folder_id: params[:media_library])
           image.file.attach(file)
 
           # Was it not an image after all? DESTROY IT

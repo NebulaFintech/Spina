@@ -4,9 +4,6 @@ $(document).on 'direct-uploads:start', 'form', (e) ->
 $(document).on 'direct-uploads:end', 'form', (e) ->
   $(this).find('.customfile').removeClass('loading')
 
-$(document).on 'direct-upload:progress', 'input', (e) ->
-  console.log(e.detail.progress)
-
 $(document).on 'change', 'input[type="file"]', (e) ->
   $form = $(this).parents('form')
   $form.find('input[type="submit"]').click()
@@ -29,7 +26,7 @@ ready = ->
   $('.media-folder').droppable(
     drop: (event, ui) ->
       url = $(this).attr('data-add-to-media-folder-url')
-      image_id = $(ui.draggable).find('input[type="radio"]').val()
+      image_id = $(ui.draggable).attr('data-image-id')
 
       $.ajax
         url: url,

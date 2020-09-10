@@ -1,23 +1,16 @@
 module Spina
   class Account < ApplicationRecord
+    include AttrJson::Record
+    include AttrJson::NestedAttributes
     include Partable
+    include TranslatedContent
 
     serialize :preferences
-
-    has_many :layout_parts, dependent: :destroy
-    accepts_nested_attributes_for :layout_parts, allow_destroy: true
-
-    alias_attribute :layout_part, :part
-    alias_attribute :parts, :layout_parts
 
     after_save :bootstrap_website
 
     def to_s
       name
-    end
-
-    def content(layout_part)
-      layout_parts.find_by(name: layout_part).try(:content)
     end
 
     def self.serialized_attr_accessor(*args)
@@ -49,7 +42,7 @@ module Spina
 
     def bootstrap_navigations(theme)
       theme.navigations.each_with_index do |navigation, index|
-        Navigation.where(name: navigation[:name]).first_or_create.update_attributes(navigation.merge(position: index))
+        Navigation.where(name: navigation[:name]).first_or_create.update(navigation.merge(position: index))
       end
     end
 
@@ -61,7 +54,7 @@ module Spina
 
     def bootstrap_resources(theme)
       theme.resources.each do |resource|
-        Resource.where(name: resource[:name]).first_or_create.update_attributes(resource)
+        Resource.where(name: resource[:name]).first_or_create.update(resource)
       end
     end
 
@@ -69,7 +62,7 @@ module Spina
       theme.custom_pages.each do |page|
         Page.where(name: page[:name])
             .first_or_create(title: page[:title])
-            .update_attributes(view_template: page[:view_template], deletable: page[:deletable])
+            .update(view_template: page[:view_template], deletable: page[:deletable])
       end
     end
 

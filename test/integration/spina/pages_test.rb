@@ -3,6 +3,8 @@ require 'test_helper'
 module Spina
   class PagesTest < ActionDispatch::IntegrationTest
     setup do
+      host! "dummy.test"
+
       I18n.locale = :en
       @routes = Engine.routes
       FactoryBot.create :account
@@ -31,6 +33,11 @@ module Spina
     test "view show page" do
       get "/about"
       assert_select 'h1', 'About'
+    end
+
+    test "view demo page" do
+      get "/demo"
+      assert_select 'h1', 'Demo'
     end
 
     # Different languages

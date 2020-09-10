@@ -10,18 +10,17 @@ module Spina
       def index
         add_breadcrumb I18n.t('spina.website.pages'), spina.admin_pages_path
         redirect_to admin_pages_path unless current_admin_path.starts_with?('/pages')
-        @pages = Page.active.sorted.roots.regular_pages
+        @pages = Page.active.sorted.roots.regular_pages.includes(:translations)
       end
 
       def new
         @resource = Resource.find_by(id: params[:resource_id])
-        @page = Page.new(resource: @resource, parent: Page.find_by(id: params[:parent_id]) || @resource&.parent_page)
+        @page = Page.new(resource: @resource, parent: Page.find_by(id: params[:parent_id]))
         add_index_breadcrumb
         if current_theme.new_page_templates.any? { |template| template[0] == params[:view_template] }
           @page.view_template = params[:view_template]
         end
         add_breadcrumb I18n.t('spina.pages.new')
-        @page_parts = @page.view_template_page_parts(current_theme).map { |part| @page.part(part) }
         render layout: 'spina/admin/admin'
       end
 
@@ -32,7 +31,6 @@ module Spina
           @page.navigations << Spina::Navigation.where(auto_add_pages: true)
           redirect_to spina.edit_admin_page_url(@page), flash: {success: t('spina.pages.saved')}
         else
-          @page_parts = @page.view_template_page_parts(current_theme).map { |part| @page.part(part) }
           render :new, layout: 'spina/admin/admin'
         end
       end
@@ -40,20 +38,18 @@ module Spina
       def edit        
         add_index_breadcrumb
         add_breadcrumb @page.title
-        @page_parts = @page.view_template_page_parts(current_theme).map { |part| @page.part(part) }
         render layout: 'spina/admin/admin'
       end
 
-      def update 
+      def update
         respond_to do |format|
           Mobility.locale = @locale
-          if @page.update_attributes(page_params)
+          if @page.update(page_params)
             @page.touch
             format.html { redirect_to spina.edit_admin_page_url(@page, params: {locale: @locale}), flash: {success: t('spina.pages.saved')} }
             format.js
           else
             format.html do
-              @page_parts = @page.view_template_page_parts(current_theme).map { |part| @page.part(part) }
               Mobility.locale = I18n.default_locale
               render :edit, layout: 'spina/admin/admin'
             end

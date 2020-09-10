@@ -1,6 +1,10 @@
 trix-toolbar
+  position: sticky
+  z-index: 2
+
   .trix-button-group
     border: 0
+    margin-bottom: 0
 
     &:not(:first-child)
       margin-left: 10px
@@ -38,7 +42,7 @@ trix-toolbar
 
     &::before
       background: none
-      font-family: 'Font Awesome 5 Free'
+      font-family: $icon-font
       display: inline-block
       font-weight: 900
       line-height: 36px
@@ -46,56 +50,43 @@ trix-toolbar
       text-indent: 0
 
     &.trix-button--icon-bold
-      &::before
-        content: "\f032"
+      @extend .icon-bold
 
     &.trix-button--icon-italic
-      &::before
-        content: "\f033"
+      @extend .icon-italic
 
     &.trix-button--icon-strike
-      &::before
-        content: "\f0cc"
+      @extend .icon-strikethrough
 
     &.trix-button--icon-link
-      &::before
-        content: "\f0c1"
+      @extend .icon-link
 
     &.trix-button--icon-image
-      &::before
-        content: "\f03e"
+      @extend .icon-image
 
     &.trix-button--icon-quote
-      &::before
-        content: "\f10e"
+      @extend .icon-quote-right
 
     &.trix-button--icon-code
-      &::before
-        content: "\f121"
+      @extend .icon-code
 
     &.trix-button--icon-bullet-list
-      &::before
-        content: "\f0ca"
+      @extend .icon-list
 
     &.trix-button--icon-number-list
-      &::before
-        content: "\f0cb"
+      @extend .icon-list-ol
 
     &.trix-button--icon-decrease-nesting-level
-      &::before
-        content: "\f03b"
+      @extend .icon-outdent
 
     &.trix-button--icon-increase-nesting-level
-      &::before
-        content: "\f03c"
+      @extend .icon-indent
 
     &.trix-button--icon-undo
-      &::before
-        content: "\f2ea"
+      @extend .icon-undo
 
     &.trix-button--icon-redo
-      &::before
-        content: "\f2f9"
+      @extend .icon-redo
 
   .trix-dialog
     border-top-color: $primary-color
@@ -104,10 +95,12 @@ trix-toolbar
 trix-editor
   line-height: 18px
   min-height: 100px
+  margin-top: 15px
 
   h1, h2, h3, h4, h5, h6
     padding-left: 24px
     position: relative
+    z-index: 1
 
     &:after
       color: #ccc
@@ -178,3 +171,54 @@ trix-editor
     border-radius: 0
     box-shadow: none
     font-size: 16px
+
+  .trix-attachment-spina-image
+    background: #f5f5f5
+    border-radius: 6px
+    cursor: default
+    display: block
+    height: 150px
+    margin-bottom: 40px
+    position: relative
+    width: 200px
+
+    &[data-label=""]
+      margin-bottom: 0px
+
+      &:before
+        display: none
+
+    img
+      border-radius: 6px
+      display: block
+      height: 150px
+      width: 200px
+
+    &:before
+      background: #eee
+      border-radius: 40px
+      bottom: -36px
+      color: #666
+      content: attr(data-label)
+      display: block
+      font-size: 13px
+      font-style: italic
+      line-height: 16px
+      left: 0px
+      padding: 6px 12px
+      position: absolute
+      text-align: left
+      white-space: nowrap
+      width: auto
+
+  figure[data-trix-mutable]
+    .trix-attachment-spina-image:before
+      background: $primary-color
+      color: white
+
+    &.attachment img
+      box-shadow: 0 0 15px rgba(0, 0, 0, .15)
+
+  .trix-button--remove
+    border: none
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15)
