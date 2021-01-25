@@ -106,7 +106,7 @@ module Spina
       end
 
       def rewrite_rule
-        RewriteRule.where(old_path: old_path).first_or_create.update_attributes(new_path: materialized_path) if old_path != materialized_path
+        RewriteRule.where(old_path: old_path).first_or_create.update(new_path: materialized_path) if old_path != materialized_path
       end
 
       def localized_materialized_path
