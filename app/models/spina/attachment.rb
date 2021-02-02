@@ -18,7 +18,7 @@ module Spina
       file if file.attached?
     end
 
-    alias_method alias_method :old_update, :update
+    alias_method :old_update, :update
     def update(attributes)
       if attributes["_destroy"] == "1" && attributes["file"].blank?
         self.page_part.destroy
