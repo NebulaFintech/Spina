@@ -58,7 +58,7 @@ $.fn.customFileInput = function(){
   //create custom control container
   var upload = $('<div class="customfile"></div>');
   //create custom control button
-  var uploadButton = $('<span class="customfile-button" aria-hidden="true">voeg foto toe</span>').appendTo(upload);
+  var uploadButton = $('<span class="customfile-button" aria-hidden="true">Subir archivo</span>').appendTo(upload);
   //create custom control feedback
   var uploadFeedback = $('<span class="customfile-feedback" aria-hidden="true">Geen bestand geselecteerd...</span>').appendTo(upload);
   
